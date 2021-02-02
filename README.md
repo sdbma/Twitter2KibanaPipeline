@@ -18,7 +18,8 @@ Storage is not an issue though because tweets contains only 140 characters. Imag
 The schema gets **location** and **text** from the tweets. We collect **sentiments** from the tweets and current **datetime** to the schema.
 
 ### Processing Pipeline
-![Processing Pipeline](pipeline.png)
+![Processing Pipeline](https://github.com/sdbma/Twitter2KibanaPipeline/tree/main/images/pipeline.png)
+
 The schema used to process twitter streams and extract data is the following:
 ```sql
 SCHEMA {
@@ -44,7 +45,9 @@ $ pip install -r requirements.txt
 $ docker-compose -f docker-compose.yml up -d
 ```
 The next thing to do is to create a schema in Kibana interface containing the non-basic type fields of schema. For visualizing geographical points in Kibana, we need to specify **LOCATION** as of type **geo_point**. Also, for specifying time as index pattern, we need to specify **DATETIME** as of type **date**. The index creation must be done before we allow AvroProducer to register its schema and dump its data. AvroProducer in the processing pipeline emits schema fields as strings, so unless we specify these fields earlier in Kibana, we would only be seeing strings, and not *geo_point* and *data*. The string geo-points are ordered as *latitude*,*longitude*. 
-![KibanaSchema](images/kibana.png)
+
+![KibanaSchema](https://github.com/sdbma/Twitter2KibanaPipeline/tree/main/images/kibana.png)
+
 We can check the mapping of the index using the following command:
 ```csh
 $ ./checkmapping.csh
@@ -64,9 +67,6 @@ $ ./checkmapping.csh
 }
 ```
 
-
-
-Please contact [Shomit Dutta](mailto:shomitdutta@gmail.com) for follow-up questions. 
 Along with running producer, we can run the consumer and kafkcat to check the outputs of Kafka messaging queue.
 ```sh
 $ python pythontweets.py
@@ -102,18 +102,18 @@ $ ./checkmapping.csh
 }
 ```
 Going back to Kibana interface, we can get the following output that shows data along with SCHEMA.
-![KibanaResults](images/kibana2.png)
+![KibanaResults](https://github.com/sdbma/Twitter2KibanaPipeline/tree/main/images/kibana2.png)
 
 Next, created index patterns, that looks like the following:
-![KibanaIndex](images/kibana3.png)
+![KibanaIndex](https://github.com/sdbma/Twitter2KibanaPipeline/tree/main/images/kibana3.png)
 
 Now, it's time visualize the results in the dashboard.
-![KibanaVisuals](images/kibana3.png)
+![KibanaVisuals](https://github.com/sdbma/Twitter2KibanaPipeline/tree/main/images/kibana4.png)
 
 We can filter by sentiments and datetime in the above visualization.
 
 The heat map can also be seen as below:
-![KibanaHeatMap](images/kibana4.png)
+![KibanaHeatMap](https://github.com/sdbma/Twitter2KibanaPipeline/tree/main/images/kibana5.png)
 
 ### Limitations
 * Streaming twitter API - some tweets being dropped
@@ -128,6 +128,7 @@ The heat map can also be seen as below:
   * Scalability improvement using Apache Flink processing layer after Kafka messaging layer
   * Spark-streaming layer with Hadoop cluster for processing historical data.
 
+Please contact [Shomit Dutta](mailto:shomitdutta@gmail.com) for follow-up questions. 
 
 License
 ----
