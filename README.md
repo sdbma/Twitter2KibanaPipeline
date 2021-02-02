@@ -18,7 +18,7 @@ Storage is not an issue though because tweets contains only 140 characters. Imag
 The schema gets **location** and **text** from the tweets. We collect **sentiments** from the tweets and current **datetime** to the schema.
 
 ### Processing Pipeline
-![Processing Pipeline](images/pipeline.png)
+![Processing Pipeline](pipeline.png)
 The schema used to process twitter streams and extract data is the following:
 ```sql
 SCHEMA {
